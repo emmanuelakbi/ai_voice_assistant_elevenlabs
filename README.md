@@ -170,7 +170,7 @@ The following permissions are automatically configured in `AndroidManifest.xml`:
 ### 🤖 ElevenLabs Agent Setup
 
 #### Step 1: Create ElevenLabs Account
-1. Visit [ElevenLabs](https://elevenlabs.io) and create an account
+1. Visit [ElevenLabs](https://bit.ly/3X5ZzqO) and create an account
 2. Navigate to the **Conversational AI** section in the dashboard
 3. Ensure you have access to the Conversational AI features
 
