@@ -6,7 +6,6 @@ import '../widgets/transcript_widget.dart';
 import '../core/theme/app_theme.dart';
 import '../core/constants/app_constants.dart';
 
-/// Main voice assistant interface screen
 class VoiceAssistantScreen extends StatefulWidget {
   const VoiceAssistantScreen({super.key});
 
@@ -15,17 +14,14 @@ class VoiceAssistantScreen extends StatefulWidget {
 }
 
 class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
-  /// Service for managing ElevenLabs voice conversations
   late ElevenLabsNativeService _voiceService;
 
   @override
   void initState() {
     super.initState();
-    // Initialize the ElevenLabs service for voice conversations
     _voiceService = ElevenLabsNativeService();
   }
 
-  /// Handles the main call button press (start/stop conversation)
   Future<void> _handleCallButtonPress() async {
     try {
       if (_voiceService.isCallActive) {
@@ -38,7 +34,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     }
   }
 
-  /// Show error dialog
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -114,7 +109,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     );
   }
 
-  /// Get status text based on call state
   String _getStatusText() {
     if (_voiceService.isLoading) {
       return 'Connecting...';
@@ -138,7 +132,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     }
   }
 
-  /// Get status indicator color based on call state
   Color _getStatusColor() {
     if (_voiceService.isLoading) {
       return AppTheme.primaryBlue;
@@ -150,7 +143,7 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
       case 'connecting':
         return AppTheme.primaryBlue;
       case 'active':
-        return const Color(0xFF10B981); // Green
+        return const Color(0xFF10B981);
       case 'listening':
         return AppTheme.primaryBlue;
       case 'processing':
@@ -175,12 +168,10 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                 padding: const EdgeInsets.all(AppConstants.defaultPadding),
                 child: Column(
                   children: [
-                    // Header
                     _buildHeader(),
                     
                     const Spacer(flex: 2),
                     
-                    // Animated Avatar
                     AnimatedAvatar(
                       isActive: _voiceService.isCallActive,
                       status: _voiceService.callStatus,
@@ -188,18 +179,15 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                     
                     const SizedBox(height: AppConstants.largePadding),
                     
-                    // Title and Status
                     _buildTitleSection(),
                     
                     const SizedBox(height: AppConstants.largePadding),
                     
-                    // Transcript (always show when call is active)
                     if (_voiceService.isCallActive)
                       TranscriptWidget(transcript: _voiceService.transcript),
                     
                     const Spacer(flex: 2),
                     
-                    // Call Button
                     CallButton(
                       isCallActive: _voiceService.isCallActive,
                       isLoading: _voiceService.isLoading,
@@ -208,7 +196,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                     
                     const SizedBox(height: AppConstants.largePadding),
                     
-                    // Mute Button (only show when call is active)
                     if (_voiceService.isCallActive) _buildMuteButton(),
                     
                     const Spacer(),
@@ -222,14 +209,12 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     );
   }
 
-  /// Build header section
   Widget _buildHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
           onPressed: () {
-            // Add menu functionality if needed
           },
           icon: const Icon(Icons.menu),
           color: AppTheme.textSecondary,
@@ -243,7 +228,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
         ),
         IconButton(
           onPressed: () {
-            // Add settings functionality if needed
           },
           icon: const Icon(Icons.settings),
           color: AppTheme.textSecondary,
@@ -252,7 +236,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     );
   }
 
-  /// Build title and status section
   Widget _buildTitleSection() {
     return Column(
       children: [
@@ -281,7 +264,6 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
     );
   }
 
-  /// Build mute button
   Widget _buildMuteButton() {
     return GestureDetector(
       onTap: _voiceService.toggleMute,

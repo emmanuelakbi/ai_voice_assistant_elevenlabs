@@ -3,67 +3,9 @@ import '../services/elevenlabs_native_service.dart';
 import '../core/theme/app_theme.dart';
 import '../core/constants/app_constants.dart';
 
-/// Real-time conversation transcript display with advanced message handling
-/// 
-/// This widget provides a comprehensive view of the ongoing voice conversation,
-/// displaying messages from both the user and AI assistant with distinct styling,
-/// timestamps, and automatic scrolling behavior.
-/// 
-/// ## Features
-/// 
-/// - **Real-time Updates**: Automatically displays new messages as they arrive
-/// - **Auto-scrolling**: Smoothly scrolls to show the latest messages
-/// - **Message Differentiation**: Distinct styling for user vs assistant messages
-/// - **Timestamps**: Precise time display for each message
-/// - **Message Count**: Header shows total number of messages
-/// - **Empty State**: Helpful placeholder when no messages exist
-/// - **Responsive Design**: Adapts to different screen sizes and orientations
-/// 
-/// ## Message Layout
-/// 
-/// ```
-/// ┌─────────────────────────────────────┐
-/// │ 🗨️ Live Transcript    5 messages    │
-/// ├─────────────────────────────────────┤
-/// │ 👤 You                    14:32:15  │
-/// │ ┌─────────────────────────────────┐ │
-/// │ │ Hello, how are you today?       │ │
-/// │ └─────────────────────────────────┘ │
-/// │                                     │
-/// │ 🤖 Assistant              14:32:18  │
-/// │ ┌─────────────────────────────────┐ │
-/// │ │ I'm doing well, thank you!      │ │
-/// │ └─────────────────────────────────┘ │
-/// └─────────────────────────────────────┘
-/// ```
-/// 
-/// ## Usage
-/// 
-/// ```dart
-/// TranscriptWidget(
-///   transcript: voiceService.transcript,
-/// )
-/// ```
-/// 
-/// The widget automatically handles all message display logic and scrolling
-/// behavior based on the provided transcript list.
 class TranscriptWidget extends StatefulWidget {
-  /// List of conversation messages to display
-  /// 
-  /// Each [TranscriptMessage] contains:
-  /// - Message text content
-  /// - Sender identification (user vs assistant)
-  /// - Timestamp for when the message was created
-  /// 
-  /// The list is expected to be in chronological order, with newer
-  /// messages at the end. The widget will automatically scroll to
-  /// show the most recent messages.
   final List<TranscriptMessage> transcript;
   
-  /// Creates a transcript display widget
-  /// 
-  /// The [transcript] parameter is required and should contain the
-  /// complete conversation history to display.
   const TranscriptWidget({
     super.key,
     required this.transcript,
@@ -80,7 +22,6 @@ class _TranscriptWidgetState extends State<TranscriptWidget> {
   void didUpdateWidget(TranscriptWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     
-    // Auto-scroll to bottom when new messages arrive
     if (widget.transcript.length != oldWidget.transcript.length) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_scrollController.hasClients) {
@@ -171,7 +112,6 @@ class _TranscriptWidgetState extends State<TranscriptWidget> {
       ),
       child: Column(
         children: [
-          // Header
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -224,7 +164,6 @@ class _TranscriptWidgetState extends State<TranscriptWidget> {
             ),
           ),
           
-          // Messages
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
@@ -247,7 +186,6 @@ class _TranscriptWidgetState extends State<TranscriptWidget> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Avatar
           Container(
             width: 28,
             height: 28,
@@ -285,12 +223,10 @@ class _TranscriptWidgetState extends State<TranscriptWidget> {
           
           const SizedBox(width: 8),
           
-          // Message content
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Sender and timestamp
                 Row(
                   children: [
                     Text(
@@ -316,7 +252,6 @@ class _TranscriptWidgetState extends State<TranscriptWidget> {
                 
                 const SizedBox(height: 2),
                 
-                // Message text
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 14,
