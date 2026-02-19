@@ -1,65 +1,13 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 
-/// Interactive call button with state-aware styling and animations
-/// 
-/// This widget provides the primary interaction point for starting and ending
-/// voice conversations. It features sophisticated visual feedback, smooth
-/// animations, and clear state indication to guide user interactions.
-/// 
-/// ## Features
-/// 
-/// - **State-Aware Styling**: Visual appearance changes based on call status
-/// - **Touch Feedback**: Satisfying scale animation on press/release
-/// - **Loading States**: Spinner animation during connection/disconnection
-/// - **Accessibility**: Proper touch targets and visual contrast
-/// - **Color Coding**: Blue for start, red for end call actions
-/// 
-/// ## Visual States
-/// 
-/// | State | Color | Icon | Animation |
-/// |-------|-------|------|-----------|
-/// | **Ready to Call** | Blue | Phone | Scale on touch |
-/// | **Connecting** | Blue | Spinner | Rotation |
-/// | **Active Call** | Red | Phone End | Scale on touch |
-/// | **Disconnecting** | Red | Spinner | Rotation |
-/// 
-/// ## Usage
-/// 
-/// ```dart
-/// CallButton(
-///   isCallActive: voiceService.isCallActive,
-///   isLoading: voiceService.isLoading,
-///   onPressed: () => handleCallToggle(),
-/// )
-/// ```
-/// 
-/// The button automatically handles visual state transitions and provides
-/// appropriate feedback for all user interactions.
 class CallButton extends StatefulWidget {
-  /// Whether a voice conversation is currently active
-  /// 
-  /// Controls the button's visual state:
-  /// - `false`: Blue button with call icon (ready to start)
-  /// - `true`: Red button with end call icon (ready to end)
   final bool isCallActive;
   
-  /// Whether the button is in a loading state
-  /// 
-  /// When `true`, displays a spinner instead of the normal icon
-  /// and disables touch interactions to prevent multiple requests.
   final bool isLoading;
   
-  /// Callback function executed when the button is pressed
-  /// 
-  /// This should handle the logic for starting or ending conversations
-  /// based on the current [isCallActive] state.
   final VoidCallback onPressed;
   
-  /// Creates an interactive call button
-  /// 
-  /// All parameters are required to ensure proper state management
-  /// and user interaction handling.
   const CallButton({
     super.key,
     required this.isCallActive,
